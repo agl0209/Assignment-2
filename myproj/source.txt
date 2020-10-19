@@ -1,0 +1,62 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+<meta content="text/html; charset=utf-8" http-equiv="Content-Type" />
+<title>Assignment 2</title>
+</head>
+
+<body>
+<?php
+$servername = "localhost";
+$username = "valley";
+$password = "viking";
+
+$conn = new mysqli($servername, $username, $password);
+
+if ($conn->connect_error){
+	die("connection failed:". $conn->connect_error);
+}
+echo "connected";
+
+$sql = "create database names";
+if ($conn->querry($sql) === true) {
+	echo "database created succesfully";
+} else {
+	echo "error creating databse" .$conn->error;
+}
+
+$conn->close();
+
+$query = "SELECT * from names";
+echo "<b> <center>Database Output</center> </b> <br> <br>";
+
+if ($result = $mysqli->query($query)) {
+
+    while ($row = $result->fetch_assoc()) {
+        $field1name = $row["first name"];
+        $field2name = $row["last name"];
+        $field3name = $row["email"];
+        
+        echo '<tr>
+        			<td>'.$field1name.'</td>
+        			<td>'.$field2name.'</td>
+        			<td>'.$field3name.'</td>
+        	</tr>';
+    }
+$result->free();
+}
+?>
+
+<form action="signup.php" method="post">
+first name: <input type="text" name="name"><br>
+Last name: <input type="text" name="name"><br>
+email: <input type="text" name="email"><br>
+<input type="submit"/>
+
+
+</form>
+
+</body>
+
+</html>
